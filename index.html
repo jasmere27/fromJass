@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>For You :)))</title>
+<style>
+  body {
+    background: linear-gradient(to bottom right, #ffe4ec, #fff6f9);
+    font-family: "Poppins", sans-serif;
+    text-align: center;
+    padding-top: 100px;
+    color: #4a4a4a;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    color: #ff4d6d;
+    margin-bottom: 30px;
+    font-size: 32px;
+    animation: fadeIn 1s ease;
+  }
+
+  button {
+    margin: 10px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+
+  button:hover {
+    background: #ff1e56;
+    transform: scale(1.05);
+  }
+
+  .message-box {
+    display: none;
+    background: white;
+    margin: 30px auto;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 650px;
+    animation: fadeIn 1s ease;
+    line-height: 1.6;
+  }
+
+  .notes-container {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding-bottom: 80px;
+  }
+
+  .note {
+    width: 160px;
+    height: 160px;
+    padding: 15px;
+    background: #fffa9e;
+    box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    transform: rotate(var(--rotate));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .note:hover {
+    transform: scale(1.1) rotate(0deg);
+    z-index: 2;
+  }
+
+  .note:nth-child(3n) { background: #ffd6ff; }
+  .note:nth-child(4n) { background: #baf2bb; }
+  .note:nth-child(5n) { background: #a0c4ff; }
+  .note:nth-child(6n) { background: #ffadad; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+  <h1>Hey Mea! :)))</h1>
+
+  <button id="breatheBtn">Breathe 🌬️</button>
+  <button id="heartBtn">Open Your Heart 💖</button>
+  <button id="comfortBtn">Comfort 💫</button>
+  <button id="stickyBtn">Sticky Notes 📝</button>
+
+  <div class="message-box" id="breatheMsg">
+    Sometimes all you need is a single breath to start feeling a little lighter.  
+    So right now, close your eyes for a second — inhale deeply, hold it, and slowly let go.  
+    You don’t have to fix everything today. You don’t need to be strong all the time.  
+    You just need to be here, breathing, existing — and that’s already more than enough. 💗
+  </div>
+
+  <div class="message-box" id="heartMsg">
+    I know your heart feels heavy. I know you’re trying to make sense of things that still hurt.  
+    But please, don’t close yourself off from love — especially your own.  
+    You have such a warm, gentle heart, even if it’s been bruised.  
+    Let it rest, let it heal, and when you’re ready, open it again.  
+    The world still has so much beauty waiting for you, and so many people who care. 🌷  
+  </div>
+
+  <div class="message-box" id="comfortMsg">
+    I want you to know something: even when I don’t say the right words, I still care deeply.  
+    Sometimes I stay quiet — not because I don’t want to comfort you,  
+    but because I’m scared I’ll say something that won’t help at all.  
+    I wish I could take away your pain, or at least hold it with you.  
+    I may not always have the perfect words, but my heart is always with you — quietly hoping you find peace again. 🤍
+  </div>
+
+  <div class="notes-container" id="notes"></div>
+
+<script>
+  // Buttons
+  const breatheBtn = document.getElementById("breatheBtn");
+  const heartBtn = document.getElementById("heartBtn");
+  const comfortBtn = document.getElementById("comfortBtn");
+  const stickyBtn = document.getElementById("stickyBtn");
+
+  // Messages
+  const breatheMsg = document.getElementById("breatheMsg");
+  const heartMsg = document.getElementById("heartMsg");
+  const comfortMsg = document.getElementById("comfortMsg");
+  const notesContainer = document.getElementById("notes");
+
+  // Show one section at a time
+  function showMessage(msg) {
+    [breatheMsg, heartMsg, comfortMsg].forEach(box => box.style.display = "none");
+    notesContainer.style.display = "none";
+    msg.style.display = "block";
+  }
+
+  breatheBtn.onclick = () => showMessage(breatheMsg);
+  heartBtn.onclick = () => showMessage(heartMsg);
+  comfortBtn.onclick = () => showMessage(comfortMsg);
+
+  // Sticky notes setup
+  const affirmations = [
+    "You are loved 💕",
+    "You are enough 🌸",
+    "You are stronger than you think 💪",
+    "Your feelings are valid 💧",
+    "You deserve peace ☁️",
+    "You make people smile 🌼",
+    "You have such a kind heart 💖",
+    "It’s okay to rest 💤",
+    "One step at a time 🦋",
+    "The world is better with you in it 🌎",
+    "You’re doing your best 🌱",
+    "You have a gentle soul 💫",
+    "You matter — always 🌷",
+    "Healing takes time ⏳",
+    "You’re loved more than you know 💞",
+    "Even the sun hides sometimes ☀️",
+    "Keep shining 🌟",
+    "You’re precious 🩵",
+    "You’re not alone 🤍",
+    "Better days are coming 🌈"
+  ];
+
+  affirmations.forEach(text => {
+    const note = document.createElement("div");
+    note.classList.add("note");
+    note.style.setProperty("--rotate", (Math.random() * 10 - 5) + "deg");
+    note.textContent = text;
+    notesContainer.appendChild(note);
+  });
+
+  stickyBtn.onclick = () => {
+    [breatheMsg, heartMsg, comfortMsg].forEach(box => box.style.display = "none");
+    notesContainer.style.display = "flex";
+  };
+</script>
+</body>
+</html>
